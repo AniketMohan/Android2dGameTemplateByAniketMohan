@@ -29,8 +29,8 @@ public class Gameloop extends Thread
 		while(isrunning){
 			try{
 				canvas = surfaceholder.lockCanvas();
+				game.update();
 				game.draw(canvas);
-				//game.update();
 				surfaceholder.unlockCanvasAndPost(canvas);
 			}catch(IllegalArgumentException e){
 				e.printStackTrace();
