@@ -9,13 +9,13 @@ import android.graphics.*;
 public class Game extends SurfaceView implements SurfaceHolder.Callback
 {
 	Gameloop gameloop;
-	public int x=0;
-	public int y=0;
+	Player player;
 	@Override
 	public void surfaceCreated(SurfaceHolder p1)
 	{
 		// TODO: Implement this method
 		gameloop.startloop();
+		player = new Player(getContext(),300,300,30,Color.CYAN);
 	}
 
 	@Override
@@ -35,11 +35,19 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback
 	{
 		// TODO: Implement this method
 		super.draw(canvas);
-		Paint paint = new Paint();
-		paint.setColor(Color.RED);
-		canvas.drawRect(x++,0,x+100,100,paint);
+		String averageups= Double.toString(gameloop.getAverageUPS());
+		String averagefps= Double.toString(gameloop.getAverageFPS());
+		Paint textpaint = new Paint();
+		textpaint.setColor(Color.MAGENTA);
+		textpaint.setTextSize(30);
+		canvas.drawText("UPS = "+averageups,20,40,textpaint);
+		canvas.drawText("FPS = "+averageups,20,100,textpaint);
+		
+		player.draw(canvas);
 	}
-	public void update(){}
+	public void update(){
+		player.update();
+	}
     public Game(Context ctx){
 		super(ctx);
 		SurfaceHolder surfaceholder = getHolder();
@@ -47,5 +55,21 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback
 		gameloop = new Gameloop(this, surfaceholder);
 		setFocusable(true);
 	}
+
+	@Override
+	public boolean onTouchEvent(MotionEvent event)
+	{
+		// TODO: Implement this method
+		switch(event.getAction()){
+			case MotionEvent.ACTION_DOWN:
+				player.setposition((double)event.getX(),(double)event.getY());
+				return true;
+			case MotionEvent.ACTION_MOVE:
+				player.setposition((double)event.getX(),(double)event.getY());
+				return true;
+		}
+		return super.onTouchEvent(event);
+	}
+	
 	
 }
