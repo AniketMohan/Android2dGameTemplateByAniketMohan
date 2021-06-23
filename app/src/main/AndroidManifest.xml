@@ -6,11 +6,12 @@
         android:allowBackup="true"
         android:icon="@drawable/icona2dgtbam"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
+        android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
 		android:resizeableActivity = "true">
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+			android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
